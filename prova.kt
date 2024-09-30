@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import br.unipar.myapplication.R
 import br.unipar.prova1.R
 
 class MainActivity : AppCompatActivity() {
@@ -33,33 +34,29 @@ class MainActivity : AppCompatActivity() {
         val btnCadastrar = findViewById<Button>(R.id.btnCadastrar)
         val listViewTarefas = findViewById<ListView>(R.id.listViewTarefas)
 
-
-
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listaDeTarefas)
-
         listViewTarefas.adapter = adapter
 
         btnCadastrar.setOnClickListener {
-
             val tarefa = edlugar.text.toString()
             val tarefa2 = eddata.text.toString()
             val tarefa3 = eddinheiro.text.toString()
-            if(tarefa.isNotEmpty()){
 
-                listaDeTarefas.add(tarefa)
-                listaDeTarefas.add(tarefa2)
-                listaDeTarefas.add(tarefa3)
+            if (tarefa.isNotEmpty() && tarefa2.isNotEmpty() && tarefa3.isNotEmpty()) {
+                listaDeTarefas.add("Lugar: $tarefa")
+                listaDeTarefas.add("Data: $tarefa2")
+                listaDeTarefas.add("Valor: $tarefa3")
                 adapter.notifyDataSetChanged()
 
-                Toast.makeText(this, "Tarefa: ${tarefa, tarefa2, tarefa3}", Toast.LENGTH_LONG).show()
-
-           }
-
+                Toast.makeText(this, "Tarefas adicionadas: $tarefa, $tarefa2, $tarefa3", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_LONG).show()
+            }
         }
-
     }
 }
-///////////
+////////
+
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -70,14 +67,12 @@ class MainActivity : AppCompatActivity() {
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewDestino"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Destino"
@@ -93,7 +88,7 @@ class MainActivity : AppCompatActivity() {
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Data"
@@ -109,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewValor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Valor"
@@ -121,22 +116,19 @@ class MainActivity : AppCompatActivity() {
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Valor R$100"
+            android:hint="Valor"
             android:inputType="text" />
 
         <Button
             android:id="@+id/btnCadastrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginRight="50sp"
-            android:layout_marginBottom="10sp"
             android:text="Cadastrar" />
 
         <ListView
             android:id="@+id/listViewTarefas"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
